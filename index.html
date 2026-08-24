@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0d0814" />
+  <meta name="description" content="Harmonic Affirmations — record your own spoken affirmations mixed under looping binaural beats. An iOS app by Christopher McDonald." />
+  <title>Harmonic Affirmations — Your voice. Your frequency.</title>
+  <style>
+    :root {
+      --bg: #0d0814;
+      --bg-alt: #140c1c;
+      --gold: #d4af77;
+      --gold-soft: rgba(212, 175, 119, 0.22);
+      --amethyst: #a78bfa;
+      --cream: #f7f4ef;
+      --muted: rgba(247, 244, 239, 0.62);
+      --faint: rgba(247, 244, 239, 0.38);
+      --serif: Palatino, "Palatino Linotype", "Book Antiqua", Georgia, serif;
+      --sans: "Avenir Next", "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .glow, .orb { animation: none !important; }
+    }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--cream);
+      line-height: 1.65;
+      font-size: 1.05rem;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .atmosphere {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.45;
+    }
+
+    .orb-a {
+      width: 28rem;
+      height: 28rem;
+      top: -8rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: radial-gradient(circle, rgba(167, 139, 250, 0.35), transparent 70%);
+    }
+
+    .orb-b {
+      width: 18rem;
+      height: 18rem;
+      top: 12rem;
+      right: -4rem;
+      background: radial-gradient(circle, rgba(212, 175, 119, 0.18), transparent 70%);
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 40rem;
+      margin: 0 auto;
+      padding: 0 1.4rem 4.5rem;
+    }
+
+    header.top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.35rem 0 0;
+    }
+
+    .mark {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      text-decoration: none;
+      color: var(--cream);
+    }
+
+    .mark-h {
+      width: 1.7rem;
+      height: 1.7rem;
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-family: var(--serif);
+      font-style: italic;
+      color: var(--gold);
+      font-size: 0.95rem;
+      line-height: 1;
+    }
+
+    .mark-name {
+      font-family: var(--serif);
+      font-size: 0.92rem;
+      letter-spacing: 0.04em;
+    }
+
+    .kicker {
+      font-size: 0.68rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    h1, h2, h3 {
+      font-family: var(--serif);
+      font-weight: 400;
+      line-height: 1.18;
+      letter-spacing: 0.01em;
+    }
+
+    h1 {
+      font-size: clamp(2.35rem, 8.4vw, 3.55rem);
+      margin: 0.85rem 0 1rem;
+    }
+
+    h2 {
+      font-size: clamp(1.55rem, 4.4vw, 2.05rem);
+      margin-bottom: 0.7rem;
+    }
+
+    .lede {
+      color: var(--muted);
+      font-size: 1.08rem;
+      max-width: 32rem;
+    }
+
+    .rule {
+      border: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0.55;
+      margin: 3.4rem 0;
+    }
+
+    .hero {
+      padding-top: 3.6rem;
+      text-align: center;
+    }
+
+    .hero .lede { margin: 0 auto 2rem; }
+
+    form.waitlist {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      max-width: 26rem;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 540px) {
+      form.waitlist.inline {
+        flex-direction: row;
+        max-width: 28rem;
+      }
+    }
+
+    label.sr {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+    }
+
+    input[type="email"] {
+      flex: 1;
+      width: 100%;
+      background: rgba(20, 12, 28, 0.75);
+      border: 1px solid var(--gold-soft);
+      color: var(--cream);
+      font-family: var(--sans);
+      font-size: 1rem;
+      padding: 0.82rem 1rem;
+      border-radius: 2px;
+      outline: none;
+    }
+
+    input[type="email"]::placeholder { color: var(--faint); }
+
+    input[type="email"]:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(212, 175, 119, 0.12);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gold);
+      color: #1a1208;
+      font-family: var(--sans);
+      font-size: 0.92rem;
+      letter-spacing: 0.06em;
+      font-weight: 600;
+      text-decoration: none;
+      border: 0;
+      cursor: pointer;
+      padding: 0.86rem 1.25rem;
+      border-radius: 2px;
+      white-space: nowrap;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    .btn:hover { background: #e0c08a; }
+    .btn:active { transform: translateY(1px); }
+    .btn:focus-visible {
+      outline: 2px solid var(--amethyst);
+      outline-offset: 3px;
+    }
+
+    .tiny {
+      margin-top: 0.75rem;
+      font-size: 0.78rem;
+      color: var(--faint);
+    }
+
+    .beats {
+      display: grid;
+      gap: 1.6rem;
+    }
+
+    @media (min-width: 640px) {
+      .beats { grid-template-columns: 1fr 1fr 1fr; gap: 1.4rem; }
+    }
+
+    .beat h3 {
+      font-size: 1.2rem;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+    }
+
+    .beat p { color: var(--muted); font-size: 0.98rem; }
+
+    .freq {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.45rem 0.9rem;
+      margin-top: 1.5rem;
+      color: var(--amethyst);
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .freq span { color: var(--faint); }
+
+    .pack-list {
+      list-style: none;
+      margin: 1.3rem 0 1.6rem;
+    }
+
+    .pack-list li {
+      position: relative;
+      padding: 0.55rem 0 0.55rem 1.15rem;
+      color: var(--muted);
+      border-bottom: 1px solid rgba(212, 175, 119, 0.1);
+    }
+
+    .pack-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 1.05rem;
+      width: 0.45rem;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .pack-actions { margin: 0.4rem 0 1.2rem; }
+
+    .note {
+      border: 1px solid var(--gold-soft);
+      background: rgba(20, 12, 28, 0.55);
+      padding: 1rem 1.1rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+      scroll-margin-top: 1.5rem;
+    }
+
+    .store p { color: var(--muted); }
+
+    footer {
+      margin-top: 0.5rem;
+      text-align: center;
+      color: var(--faint);
+      font-size: 0.85rem;
+    }
+
+    footer nav {
+      display: flex;
+      justify-content: center;
+      gap: 1.4rem;
+      margin-bottom: 0.85rem;
+    }
+
+    footer a { color: var(--gold); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    footer .copy { margin-top: 0.7rem; }
+
+    .center { text-align: center; }
+    .section-head { text-align: center; margin-bottom: 1.8rem; }
+    .section-head .lede { margin: 0.5rem auto 0; }
+  </style>
+</head>
+<body>
+  <div class="atmosphere" aria-hidden="true">
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+  </div>
+
+  <div class="wrap">
+    <header class="top">
+      <a class="mark" href="#top">
+        <span class="mark-h">h</span>
+        <span class="mark-name">Harmonic Affirmations</span>
+      </a>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="product-name">
+        <p class="kicker">An iOS ritual</p>
+        <h1 id="product-name">Harmonic Affirmations</h1>
+        <p class="lede">Record your own spoken affirmations mixed under looping binaural beats. Your voice. Your frequency.</p>
+
+        <form class="waitlist inline" action="https://formsubmit.co/goldengamma@icloud.com" method="POST">
+          <input type="hidden" name="_subject" value="Harmonic Affirmations waitlist" />
+          <input type="hidden" name="_next" value="https://vwnbhwgcs9-stack.github.io/harmonic-legal/thanks.html" />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="source" value="waitlist" />
+          <label class="sr" for="email-hero">Your email</label>
+          <input id="email-hero" type="email" name="email" placeholder="Your email" required autocomplete="email" />
+          <button class="btn" type="submit">Notify me</button>
+        </form>
+        <p class="tiny">Launch-day email only. No spam.</p>
+      </section>
+
+      <hr class="rule" />
+
+      <section aria-labelledby="what-it-is">
+        <div class="section-head">
+          <p class="kicker">What it is</p>
+          <h2 id="what-it-is">A quiet practice in your own voice</h2>
+        </div>
+        <div class="beats">
+          <article class="beat">
+            <h3>Your recordings</h3>
+            <p>Speak an affirmation into the phone. It stays on the device. Play it back under a looping beat, mixed to your taste.</p>
+          </article>
+          <article class="beat">
+            <h3>Six frequencies</h3>
+            <p>Theta, Alpha, Beta, Delta, Gamma, and Epsilon. Choose the range that matches the hour — morning, focus, or rest.</p>
+          </article>
+          <article class="beat">
+            <h3>Sleep and ritual</h3>
+            <p>A sleep mode for drifting off, and a small daily practice that asks only a few minutes of your own voice.</p>
+          </article>
+        </div>
+        <p class="freq">Theta <span>·</span> Alpha <span>·</span> Beta <span>·</span> Delta <span>·</span> Gamma <span>·</span> Epsilon</p>
+      </section>
+
+      <hr class="rule" />
+
+      <section id="waitlist" class="center" aria-labelledby="waitlist-heading">
+        <p class="kicker">Waitlist</p>
+        <h2 id="waitlist-heading">Be first to know</h2>
+        <p class="lede" style="margin: 0 auto 1.5rem;">The iOS app is in review. Leave your email and we will write once, on launch day.</p>
+        <form class="waitlist inline" action="https://formsubmit.co/goldengamma@icloud.com" method="POST">
+          <input type="hidden" name="_subject" value="Harmonic Affirmations waitlist" />
+          <input type="hidden" name="_next" value="https://vwnbhwgcs9-stack.github.io/harmonic-legal/thanks.html" />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="source" value="waitlist" />
+          <label class="sr" for="email-waitlist">Your email</label>
+          <input id="email-waitlist" type="email" name="email" placeholder="Your email" required autocomplete="email" />
+          <button class="btn" type="submit">Notify me</button>
+        </form>
+        <p class="tiny">Launch-day email only. No spam.</p>
+      </section>
+
+      <hr class="rule" />
+
+      <section class="center" aria-labelledby="pack-heading">
+        <p class="kicker">Companion pack · $9</p>
+        <h2 id="pack-heading">Don’t want to wait for the app?</h2>
+        <p class="lede" style="margin: 0 auto;">Twenty-four affirmation scripts and six binaural beat loops, as a download. Use them in any player, tonight.</p>
+        <ul class="pack-list" style="text-align: left; max-width: 32rem; margin-left: auto; margin-right: auto;">
+          <li>24 first-person scripts across Confidence, Health &amp; Vitality, Abundance &amp; Fortune, Sleep, Focus, and Self-Love</li>
+          <li>6 looping binaural beat files — Theta, Alpha, Beta, Delta, Gamma, Epsilon</li>
+          <li>Yours to keep. Play on any device. $9.</li>
+        </ul>
+        <div class="pack-actions">
+          <a class="btn" href="#pack" id="buy-pack" data-buy-url="">Get the companion pack — $9</a>
+        </div>
+        <p class="note" id="pack">Pack is ready. Checkout link goes live as soon as the store is connected — join the waitlist and we’ll send it.</p>
+      </section>
+
+      <hr class="rule" />
+
+      <section class="store center" aria-labelledby="store-heading">
+        <p class="kicker">App Store</p>
+        <h2 id="store-heading">Harmonic Affirmations is in App Review.</h2>
+        <p>We will update this page with the listing the moment it is live. Until then, the waitlist is the surest way to hear.</p>
+      </section>
+
+      <hr class="rule" />
+    </main>
+
+    <footer>
+      <nav aria-label="Legal">
+        <a href="https://vwnbhwgcs9-stack.github.io/harmonic-legal/privacy.html">Privacy</a>
+        <a href="https://vwnbhwgcs9-stack.github.io/harmonic-legal/terms.html">Terms</a>
+      </nav>
+      <p>Binaural beats and affirmations are wellness tools, not medical care.</p>
+      <p class="copy">© 2026 Christopher McDonald</p>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var btn = document.getElementById('buy-pack');
+      if (!btn) return;
+      btn.addEventListener('click', function (e) {
+        var url = (btn.getAttribute('data-buy-url') || '').trim();
+        if (url) {
+          e.preventDefault();
+          window.location.href = url;
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
