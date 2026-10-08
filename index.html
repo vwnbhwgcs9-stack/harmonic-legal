@@ -160,49 +160,6 @@
 
     .hero .lede { margin: 0 auto 2rem; }
 
-    form.waitlist {
-      display: flex;
-      flex-direction: column;
-      gap: 0.7rem;
-      max-width: 26rem;
-      margin: 0 auto;
-    }
-
-    @media (min-width: 540px) {
-      form.waitlist.inline {
-        flex-direction: row;
-        max-width: 28rem;
-      }
-    }
-
-    label.sr {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-    }
-
-    input[type="email"] {
-      flex: 1;
-      width: 100%;
-      background: rgba(20, 12, 28, 0.75);
-      border: 1px solid var(--gold-soft);
-      color: var(--cream);
-      font-family: var(--sans);
-      font-size: 1rem;
-      padding: 0.82rem 1rem;
-      border-radius: 2px;
-      outline: none;
-    }
-
-    input[type="email"]::placeholder { color: var(--faint); }
-
-    input[type="email"]:focus {
-      border-color: var(--gold);
-      box-shadow: 0 0 0 3px rgba(212, 175, 119, 0.12);
-    }
-
     .btn {
       display: inline-flex;
       align-items: center;
@@ -227,12 +184,6 @@
     .btn:focus-visible {
       outline: 2px solid var(--amethyst);
       outline-offset: 3px;
-    }
-
-    .tiny {
-      margin-top: 0.75rem;
-      font-size: 0.78rem;
-      color: var(--faint);
     }
 
     .beats {
@@ -344,17 +295,7 @@
         <h1 id="product-name">Harmonic Affirmations</h1>
         <p class="lede">Record your own spoken affirmations mixed under looping binaural beats. Your voice. Your frequency.</p>
 
-        <form class="waitlist inline" action="https://formsubmit.co/goldengamma@icloud.com" method="POST">
-          <input type="hidden" name="_subject" value="Harmonic Affirmations waitlist" />
-          <input type="hidden" name="_next" value="https://vwnbhwgcs9-stack.github.io/harmonic-legal/thanks.html" />
-          <input type="hidden" name="_captcha" value="false" />
-          <input type="hidden" name="_template" value="table" />
-          <input type="hidden" name="source" value="waitlist" />
-          <label class="sr" for="email-hero">Your email</label>
-          <input id="email-hero" type="email" name="email" placeholder="Your email" required autocomplete="email" />
-          <button class="btn" type="submit">Notify me</button>
-        </form>
-        <p class="tiny">Launch-day email only. No spam.</p>
+        <a class="btn" href="https://apps.apple.com/us/app/id6763257281" target="_blank" rel="noopener">Get it on the App Store</a>
       </section>
 
       <hr class="rule" />
@@ -383,28 +324,9 @@
 
       <hr class="rule" />
 
-      <section id="waitlist" class="center" aria-labelledby="waitlist-heading">
-        <p class="kicker">Waitlist</p>
-        <h2 id="waitlist-heading">Be first to know</h2>
-        <p class="lede" style="margin: 0 auto 1.5rem;">The iOS app is in review. Leave your email and we will write once, on launch day.</p>
-        <form class="waitlist inline" action="https://formsubmit.co/goldengamma@icloud.com" method="POST">
-          <input type="hidden" name="_subject" value="Harmonic Affirmations waitlist" />
-          <input type="hidden" name="_next" value="https://vwnbhwgcs9-stack.github.io/harmonic-legal/thanks.html" />
-          <input type="hidden" name="_captcha" value="false" />
-          <input type="hidden" name="_template" value="table" />
-          <input type="hidden" name="source" value="waitlist" />
-          <label class="sr" for="email-waitlist">Your email</label>
-          <input id="email-waitlist" type="email" name="email" placeholder="Your email" required autocomplete="email" />
-          <button class="btn" type="submit">Notify me</button>
-        </form>
-        <p class="tiny">Launch-day email only. No spam.</p>
-      </section>
-
-      <hr class="rule" />
-
       <section class="center" aria-labelledby="pack-heading">
         <p class="kicker">Companion pack · $9</p>
-        <h2 id="pack-heading">Don’t want to wait for the app?</h2>
+        <h2 id="pack-heading">Want to go deeper?</h2>
         <p class="lede" style="margin: 0 auto;">Twenty-four affirmation scripts and six binaural beat loops, as a download. Use them in any player, tonight.</p>
         <ul class="pack-list" style="text-align: left; max-width: 32rem; margin-left: auto; margin-right: auto;">
           <li>24 first-person scripts across Confidence, Health &amp; Vitality, Abundance &amp; Fortune, Sleep, Focus, and Self-Love</li>
@@ -421,8 +343,8 @@
 
       <section class="store center" aria-labelledby="store-heading">
         <p class="kicker">App Store</p>
-        <h2 id="store-heading">Harmonic Affirmations is in App Review.</h2>
-        <p>We will update this page with the listing the moment it is live. Until then, the waitlist is the surest way to hear.</p>
+        <h2 id="store-heading">Harmonic Affirmations is live on the App Store.</h2>
+        <p><a class="btn" href="https://apps.apple.com/us/app/id6763257281" target="_blank" rel="noopener">Get it on the App Store</a></p>
       </section>
 
       <hr class="rule" />
