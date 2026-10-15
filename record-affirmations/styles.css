@@ -1,0 +1,86 @@
+/* Harmonic Affirmations: round-2 landing page (DRAFT)
+   Palette, fonts, and components copied from the live site
+   /workspace/harmonic-legal/index.html (vwnbhwgcs9-stack.github.io/harmonic-legal/),
+   which keeps its CSS inline. Same tokens so the page matches. */
+:root {
+  --bg: #0d0814;
+  --bg-alt: #140c1c;
+  --gold: #d4af77;
+  --gold-soft: rgba(212, 175, 119, 0.22);
+  --amethyst: #a78bfa;
+  --cream: #f7f4ef;
+  --muted: rgba(247, 244, 239, 0.62);
+  --faint: rgba(247, 244, 239, 0.38);
+  --serif: Palatino, "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  --sans: "Avenir Next", "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  font-family: var(--sans); background: var(--bg); color: var(--cream);
+  line-height: 1.65; font-size: 1.05rem; min-height: 100vh; -webkit-font-smoothing: antialiased;
+}
+.atmosphere { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.45; }
+.orb-a { width: 28rem; height: 28rem; top: -8rem; left: 50%; transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(167, 139, 250, 0.35), transparent 70%); }
+.orb-b { width: 18rem; height: 18rem; top: 12rem; right: -4rem;
+  background: radial-gradient(circle, rgba(212, 175, 119, 0.18), transparent 70%); }
+.wrap { position: relative; z-index: 1; max-width: 40rem; margin: 0 auto; padding: 0 1.4rem 4.5rem; }
+header.top { display: flex; align-items: center; justify-content: space-between; padding: 1.35rem 0 0; }
+.mark { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; color: var(--cream); }
+.mark-h { width: 1.7rem; height: 1.7rem; border: 1px solid var(--gold); border-radius: 50%;
+  display: grid; place-items: center; font-family: var(--serif); font-style: italic;
+  color: var(--gold); font-size: 0.95rem; line-height: 1; }
+.mark-name { font-family: var(--serif); font-size: 0.92rem; letter-spacing: 0.04em; }
+.kicker { font-size: 0.68rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); font-weight: 500; }
+h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.18; letter-spacing: 0.01em; }
+h1 { font-size: clamp(2.1rem, 7.6vw, 3.2rem); margin: 0.85rem 0 1rem; }
+h2 { font-size: clamp(1.45rem, 4.2vw, 1.95rem); margin-bottom: 0.7rem; }
+h3 { font-size: 1.2rem; color: var(--gold); margin-bottom: 0.4rem; }
+p + p { margin-top: 0.8rem; }
+.lede { color: var(--muted); font-size: 1.08rem; max-width: 32rem; }
+.rule { border: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.55; margin: 3.2rem 0; }
+.hero { padding-top: 3.4rem; text-align: center; }
+.hero .lede { margin: 0 auto 1.8rem; }
+.center { text-align: center; }
+.section-head { text-align: center; margin-bottom: 1.6rem; }
+.section-head .lede { margin: 0.5rem auto 0; }
+section p, section li { color: var(--muted); }
+
+/* App Store badge: Apple artwork, unmodified. Min 40px tall on screen,
+   clear space = 1/4 badge height (Apple Marketing Guidelines). */
+.badge-link { display: inline-block; padding: 10px; line-height: 0; }
+.badge-link img { height: 48px; width: auto; display: block; }
+.badge-link:focus-visible { outline: 2px solid var(--amethyst); outline-offset: 3px; }
+
+.steps { list-style: none; counter-reset: step; display: grid; gap: 1.4rem; }
+.steps li { counter-increment: step; position: relative; padding-left: 2.6rem; }
+.steps li::before { content: counter(step); position: absolute; left: 0; top: 0.1rem;
+  width: 1.7rem; height: 1.7rem; border: 1px solid var(--gold); border-radius: 50%;
+  display: grid; place-items: center; font-family: var(--serif); color: var(--gold); font-size: 0.95rem; }
+.steps h3 { margin-bottom: 0.25rem; }
+.example { display: block; margin-top: 0.5rem; padding: 0.7rem 0.9rem; border-left: 1px solid var(--gold);
+  font-family: var(--serif); font-style: italic; color: var(--cream); background: rgba(20, 12, 28, 0.55); }
+
+.tiers { display: grid; gap: 1.2rem; }
+@media (min-width: 600px) { .tiers { grid-template-columns: 1fr 1fr; } }
+.tier { border: 1px solid var(--gold-soft); background: rgba(20, 12, 28, 0.55); padding: 1rem 1.1rem; }
+.tier ul { list-style: none; margin-top: 0.4rem; }
+.tier li { padding: 0.3rem 0 0.3rem 1rem; position: relative; font-size: 0.97rem; }
+.tier li::before { content: ""; position: absolute; left: 0; top: 0.95rem; width: 0.45rem; height: 1px; background: var(--gold); }
+
+.faq dt { font-family: var(--serif); color: var(--cream); font-size: 1.1rem; margin-top: 1.3rem; }
+.faq dd { color: var(--muted); margin-top: 0.3rem; }
+
+.secondary { font-size: 0.9rem; color: var(--faint); margin-top: 1.2rem; }
+.secondary a, .faq a { color: var(--gold); }
+
+footer { margin-top: 0.5rem; text-align: center; color: var(--faint); font-size: 0.85rem; }
+footer nav { display: flex; justify-content: center; gap: 1.4rem; margin-bottom: 0.85rem; }
+footer a { color: var(--gold); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+footer .copy { margin-top: 0.7rem; }
+footer .tm { margin-top: 0.7rem; font-size: 0.75rem; }
